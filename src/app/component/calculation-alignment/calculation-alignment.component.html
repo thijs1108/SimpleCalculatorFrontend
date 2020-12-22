@@ -1,0 +1,4 @@
+<div *ngFor="let calculation of calculations">
+{{ calculation.firstNumber }} {{ calculation.operator | operatorShort }} {{ calculation.secondNumber }}
+</div>
+<button *ngIf="calculations.length>0" (click)="onClick()" >Calculate!</button>

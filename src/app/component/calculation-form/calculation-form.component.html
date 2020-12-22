@@ -1,0 +1,11 @@
+<form [formGroup]="calculationForm" (ngSubmit)="onSubmit(calculationForm.value)">
+  <input type="number" formControlName="firstNumber">
+  <select formControlName="operator">
+    <option value="ADDITION">+ (plus)</option>
+    <option value="SUBSTRACTION">- (minus)</option>
+    <option value="MULTIPLICATION">* (times)</option>
+    <option value="DIVISION">/ (divided by)</option>
+  </select>
+  <input type="number" formControlName="secondNumber">
+  <button type="submit">Add calculation</button>
+</form>
