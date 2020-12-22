@@ -19,7 +19,8 @@ export class CalculationAlignmentComponent implements OnInit {
   }
 
   onClick(): void {
-    this.alignmentService.sendCalculations().subscribe(calculationResults => console.log(calculationResults))
+    this.alignmentService.sendCalculations()
+    this.alignmentService.clearAlignment() 
   }
 
 }

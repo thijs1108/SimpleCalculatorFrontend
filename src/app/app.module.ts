@@ -7,13 +7,15 @@ import { CalculationAlignmentComponent } from './component/calculation-alignment
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { OperatorPipe } from './pipe/operation-name-pipe';
+import { CalculationHistoryComponent } from './component/calculation-history/calculation-history.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CalculationFormComponent,
     CalculationAlignmentComponent,
-    OperatorPipe
+    OperatorPipe,
+    CalculationHistoryComponent
   ],
   imports: [
     BrowserModule,

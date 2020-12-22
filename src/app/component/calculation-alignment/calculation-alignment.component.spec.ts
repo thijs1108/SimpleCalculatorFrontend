@@ -36,6 +36,14 @@ describe('CalculationAlignmentComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should be able to send calculations', ()=>{
+    spyOn(alignmentService, "sendCalculations").and.callThrough()
+    spyOn(alignmentService, "clearAlignment").and.callThrough()
+    component.onClick()
+    expect(alignmentService.sendCalculations).toHaveBeenCalled()
+    expect(alignmentService.clearAlignment).toHaveBeenCalled()
+  })
 });
 
 class MockAlignmentService{
@@ -44,5 +52,6 @@ class MockAlignmentService{
     {firstNumber: 3, secondNumber: 5, operator: Operator.DIVISION},
   ]
   sendCalculations() {}
+  clearAlignment(){}
   getAlignment() {return this.calculations}
 }
