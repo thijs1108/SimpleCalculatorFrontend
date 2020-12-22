@@ -1,0 +1,9 @@
+input{
+  margin: 10px
+}
+input[type=number]{
+  width: 100px;
+}
+button {
+  background-color: lightskyblue;
+}
