@@ -1,18 +1,22 @@
+import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { asapScheduler, of, scheduled } from 'rxjs';
+import { asapScheduler, Observable, of, scheduled } from 'rxjs';
 import { Calculation } from '../model/calculation';
 import { CalculationResult } from '../model/calculation-result';
 import { Operator } from '../model/operator.enum';
 
 import { CalculationAlignmentService } from './calculation-alignment.service';
+import { CalculationHistoryService } from './calculation-history.service';
 
 describe('CalculationAlignmentService', () => {
   let service: CalculationAlignmentService;
   let mockHttpClient;
+  let mockCalculationHistoryService: MockCalculationHistoryService;
 
   beforeEach(() => {
     mockHttpClient = new MockHttpClient();
-    service = new CalculationAlignmentService(mockHttpClient);
+    mockCalculationHistoryService = new MockCalculationHistoryService(mockHttpClient)
+    service = new CalculationAlignmentService(mockHttpClient, mockCalculationHistoryService);
   });
 
   it('should be created', () => {
@@ -26,9 +30,17 @@ describe('CalculationAlignmentService', () => {
   })
 
   it('should be able to send calculations', () => {
-    service.sendCalculations().subscribe(calculationResults=>{
-      expect(calculationResults.length).toBe(2);
-    })
+    spyOn(mockHttpClient, "post").and.callThrough()
+    service.sendCalculations()
+    expect(mockHttpClient.post).toHaveBeenCalled()
+  })
+
+  it('should be able to clear calculations', () => {
+    let calculation: Calculation = {firstNumber: 1, secondNumber: 2, operator: Operator.ADDITION}
+    service.addToAlignment(calculation);
+    let calculations = service.getAlignment();
+    service.clearAlignment()
+    expect(calculations).toEqual([])
   })
 });
 
@@ -44,4 +56,9 @@ class MockHttpClient {
   post(){
     return of(this.calculationResults);
   }
+}
+class MockCalculationHistoryService extends CalculationHistoryService{
+  $calculationResultsSubj;
+  getCalculationHistory;
+  addCalculationResults(calculationHistory): Observable<Array<CalculationResult>> { return of([])}
 }

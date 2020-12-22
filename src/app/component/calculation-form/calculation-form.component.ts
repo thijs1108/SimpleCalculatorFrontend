@@ -18,7 +18,7 @@ export class CalculationFormComponent implements OnInit {
   ) { 
     this.calculationForm = this.formbuilder.group({
       firstNumber: 1,
-      secondNumber: 2,
+      secondNumber: 1,
       operator: Operator.ADDITION
     })
   }

@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { Calculation } from '../model/calculation';
 import { CalculationResult } from '../model/calculation-result';
 import { Operator } from '../model/operator.enum';
+import { CalculationHistoryService } from './calculation-history.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,10 @@ import { Operator } from '../model/operator.enum';
 export class CalculationAlignmentService {
   calculations: Array<Calculation> = [];
 
-
-  constructor(private http: HttpClient) { 
+  constructor(
+    private http: HttpClient,
+    private calculationHistoryService: CalculationHistoryService
+    ) { 
 
   }
 
@@ -26,12 +29,14 @@ export class CalculationAlignmentService {
     return this.calculations;
   }
 
-  public sendCalculations(): Observable<Array<CalculationResult>>{
-    return this.http.post<Array<CalculationResult>>(environment.apiUrl+"/calculations", this.calculations)
+  public sendCalculations(): void {
+    this.http.post<Array<CalculationResult>>(environment.apiUrl+"/calculations", this.calculations).subscribe(calculationHistory=>{
+      this.calculationHistoryService.addCalculationResults(calculationHistory)
+    })
   }
 
   clearAlignment() {
-    this.calculations = [];
+    this.calculations.splice(0,this.calculations.length)
     return this.calculations;
   }
 
