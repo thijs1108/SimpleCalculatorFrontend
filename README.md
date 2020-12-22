@@ -1,6 +1,5 @@
 # Simplecalculator
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.5.
+Web application to make simple calculations
 
 ## Api
 This frontend expects the SimpleCalculatorApi to be running on `localhost:8080`, go to [The installation instructions of the API](https://github.com/thijs1108/SimpleCalculatorApi) to run the API.
