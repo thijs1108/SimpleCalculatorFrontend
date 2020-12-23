@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 import { Calculation } from 'src/app/model/calculation';
 import { Operator } from 'src/app/model/operator.enum';
 import { CalculationAlignmentService } from 'src/app/service/calculation-alignment.service';
@@ -15,6 +16,10 @@ describe('CalculationFormComponent', () => {
     alignmentService = new MockAlignmentService();
     TestBed.configureTestingModule({
       declarations: [ CalculationFormComponent ],
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+      ],
       providers: [
         FormBuilder,
         {
